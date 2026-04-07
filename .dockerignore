@@ -1,0 +1,9 @@
+.git
+.github
+.idea
+.vs
+artifacts
+bin
+obj
+packages
+Properties/PublishProfiles/*.user
