@@ -9,6 +9,24 @@ using System.Web.Hosting;
 
 namespace ZenDemo.DotNetFramework.Helpers
 {
+    public sealed class CommandExecutionResult
+    {
+        public CommandExecutionResult(string output, int exitCode)
+        {
+            Output = output ?? string.Empty;
+            ExitCode = exitCode;
+        }
+
+        public string Output { get; private set; }
+
+        public int ExitCode { get; private set; }
+
+        public bool Succeeded
+        {
+            get { return ExitCode == 0; }
+        }
+    }
+
     public sealed class AppHelpers
     {
         private const int MaxDecodeUriPasses = 2;
@@ -36,7 +54,7 @@ namespace ZenDemo.DotNetFramework.Helpers
             get { return LazyInstance.Value; }
         }
 
-        public string ExecuteShellCommand(string command)
+        public CommandExecutionResult ExecuteShellCommand(string command)
         {
             command = DecodeUriComponent(command);
 
@@ -59,7 +77,7 @@ namespace ZenDemo.DotNetFramework.Helpers
                 var error = process.StandardError.ReadToEnd();
 
                 process.WaitForExit();
-                return string.IsNullOrEmpty(error) ? output : error;
+                return new CommandExecutionResult(string.IsNullOrEmpty(error) ? output : error, process.ExitCode);
             }
         }
 

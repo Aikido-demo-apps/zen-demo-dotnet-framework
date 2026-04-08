@@ -62,14 +62,16 @@ namespace ZenDemo.DotNetFramework.Controllers
                 return HttpResponseHelper.PlainText(this, "Command is required", HttpStatusCode.BadRequest);
             }
 
-            return HttpResponseHelper.PlainText(this, AppHelpers.Instance.ExecuteShellCommand(request.UserCommand));
+            var result = AppHelpers.Instance.ExecuteShellCommand(request.UserCommand);
+            return HttpResponseHelper.PlainText(this, result.Output, result.Succeeded ? HttpStatusCode.OK : HttpStatusCode.BadRequest);
         }
 
         [HttpGet]
         [Route("api/execute/{command}")]
         public IHttpActionResult ExecuteCommandGet(string command)
         {
-            return HttpResponseHelper.PlainText(this, AppHelpers.Instance.ExecuteShellCommand(command));
+            var result = AppHelpers.Instance.ExecuteShellCommand(command);
+            return HttpResponseHelper.PlainText(this, result.Output, result.Succeeded ? HttpStatusCode.OK : HttpStatusCode.BadRequest);
         }
 
         [HttpPost]
