@@ -36,10 +36,11 @@ namespace ZenDemo.DotNetFramework.Services
             using (var connection = new NpgsqlConnection(_connectionString))
             using (var command = new NpgsqlCommand("SELECT \"Id\", \"Name\", \"Owner\", \"Id\" AS pet_id FROM \"Pets\" ORDER BY \"Id\"", connection))
             {
-                await connection.OpenAsync().ConfigureAwait(false);
-                using (var reader = await command.ExecuteReaderAsync().ConfigureAwait(false))
+                // Keep the ASP.NET request context attached so Zen can inspect the async Npgsql calls.
+                await connection.OpenAsync();
+                using (var reader = await command.ExecuteReaderAsync())
                 {
-                    while (await reader.ReadAsync().ConfigureAwait(false))
+                    while (await reader.ReadAsync())
                     {
                         pets.Add(new Pet
                         {
@@ -67,11 +68,11 @@ namespace ZenDemo.DotNetFramework.Services
             using (var command = new NpgsqlCommand("SELECT \"Id\", \"Name\", \"Owner\", \"Id\" AS pet_id FROM \"Pets\" WHERE \"Id\" = @id", connection))
             {
                 command.Parameters.Add("id", NpgsqlDbType.Integer).Value = parsedId;
-                await connection.OpenAsync().ConfigureAwait(false);
+                await connection.OpenAsync();
 
-                using (var reader = await command.ExecuteReaderAsync().ConfigureAwait(false))
+                using (var reader = await command.ExecuteReaderAsync())
                 {
-                    if (!await reader.ReadAsync().ConfigureAwait(false))
+                    if (!await reader.ReadAsync())
                     {
                         return null;
                     }
@@ -91,13 +92,13 @@ namespace ZenDemo.DotNetFramework.Services
         {
             using (var connection = new NpgsqlConnection(_connectionString))
             {
-                await connection.OpenAsync().ConfigureAwait(false);
+                await connection.OpenAsync();
 
                 // Intentionally vulnerable for the demo.
                 var sql = string.Format("INSERT INTO \"Pets\" (\"Name\", \"Owner\") VALUES ('{0}', 'Aikido Security')", name);
                 using (var command = new NpgsqlCommand(sql, connection))
                 {
-                    return await command.ExecuteNonQueryAsync().ConfigureAwait(false);
+                    return await command.ExecuteNonQueryAsync();
                 }
             }
         }
@@ -107,8 +108,8 @@ namespace ZenDemo.DotNetFramework.Services
             using (var connection = new NpgsqlConnection(_connectionString))
             using (var command = new NpgsqlCommand("DELETE FROM \"Pets\"", connection))
             {
-                await connection.OpenAsync().ConfigureAwait(false);
-                await command.ExecuteNonQueryAsync().ConfigureAwait(false);
+                await connection.OpenAsync();
+                await command.ExecuteNonQueryAsync();
             }
         }
 
@@ -117,8 +118,8 @@ namespace ZenDemo.DotNetFramework.Services
             using (var connection = new NpgsqlConnection(_connectionString))
             using (var command = new NpgsqlCommand("CREATE TABLE IF NOT EXISTS \"Pets\" (\"Id\" SERIAL PRIMARY KEY, \"Name\" TEXT NOT NULL, \"Owner\" TEXT NOT NULL DEFAULT 'Aikido Security');", connection))
             {
-                await connection.OpenAsync().ConfigureAwait(false);
-                await command.ExecuteNonQueryAsync().ConfigureAwait(false);
+                await connection.OpenAsync();
+                await command.ExecuteNonQueryAsync();
             }
         }
 
