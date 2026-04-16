@@ -35,8 +35,8 @@ jobs:
         with:
           name: ASP-app
           path: |
-            '/published/**'
-            '/wwwroot'
+            /published/**
+            /wwwroot
 
   deploy:
     runs-on: windows-latest
