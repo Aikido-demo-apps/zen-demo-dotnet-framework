@@ -75,10 +75,10 @@
       <HintPath>packages\Lib.Harmony.2.4.2\lib\net472\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="Aikido.Zen.Core">
-      <HintPath>packages\Aikido.Zen.DotNetFramework.1.2.44\lib\net48\Aikido.Zen.Core.dll</HintPath>
+      <HintPath>packages\Aikido.Zen.DotNetFramework.1.2.46\lib\net48\Aikido.Zen.Core.dll</HintPath>
     </Reference>
     <Reference Include="Aikido.Zen.DotNetFramework">
-      <HintPath>packages\Aikido.Zen.DotNetFramework.1.2.44\lib\net48\Aikido.Zen.DotNetFramework.dll</HintPath>
+      <HintPath>packages\Aikido.Zen.DotNetFramework.1.2.46\lib\net48\Aikido.Zen.DotNetFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces">
       <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.6.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
@@ -157,9 +157,9 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('packages\Aikido.Zen.DotNetFramework.1.2.44\Build\Aikido.Zen.DotNetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Aikido.Zen.DotNetFramework.1.2.44\Build\Aikido.Zen.DotNetFramework.targets'))" />
+    <Error Condition="!Exists('packages\Aikido.Zen.DotNetFramework.1.2.46\Build\Aikido.Zen.DotNetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Aikido.Zen.DotNetFramework.1.2.46\Build\Aikido.Zen.DotNetFramework.targets'))" />
   </Target>
-  <Import Project="packages\Aikido.Zen.DotNetFramework.1.2.44\Build\Aikido.Zen.DotNetFramework.targets" Condition="Exists('packages\Aikido.Zen.DotNetFramework.1.2.44\Build\Aikido.Zen.DotNetFramework.targets')" />
+  <Import Project="packages\Aikido.Zen.DotNetFramework.1.2.46\Build\Aikido.Zen.DotNetFramework.targets" Condition="Exists('packages\Aikido.Zen.DotNetFramework.1.2.46\Build\Aikido.Zen.DotNetFramework.targets')" />
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{349C5851-65DF-11DA-9384-00065B846F21}">
