@@ -45,6 +45,12 @@ namespace ZenDemo.DotNetFramework
                 return null;
             });
 
+            Zen.SetRateLimitGroup(context =>
+            {
+                var rateLimitGroupCookie = context.Request.Cookies["RateLimitingGroupID"];
+                return rateLimitGroupCookie?.Value;
+            });
+
             try
             {
                 Zen.Start();
