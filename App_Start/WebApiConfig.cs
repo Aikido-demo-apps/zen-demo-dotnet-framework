@@ -1,6 +1,7 @@
 using System.Web.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using ZenDemo.DotNetFramework.Filters;
 
 namespace ZenDemo.DotNetFramework.App_Start
 {
@@ -8,6 +9,8 @@ namespace ZenDemo.DotNetFramework.App_Start
     {
         public static void Register(HttpConfiguration config)
         {
+            config.Filters.Add(new UnhandledExceptionFilter());
+
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
