@@ -54,6 +54,25 @@ namespace ZenDemo.DotNetFramework.Controllers
         }
 
         [HttpPost]
+        [Route("api/create-form")]
+        public async Task<IHttpActionResult> CreatePetForm()
+        {
+            var name = HttpContext.Current.Request.Form["name"];
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                return HttpResponseHelper.PlainText(this, "Name is required", HttpStatusCode.BadRequest);
+            }
+
+            var rowsCreated = await DatabaseHelper.Instance.CreatePetByNameAsync(name).ConfigureAwait(false);
+            if (rowsCreated == -1)
+            {
+                return HttpResponseHelper.PlainText(this, "Database error occurred", HttpStatusCode.InternalServerError);
+            }
+
+            return HttpResponseHelper.PlainText(this, "Success!");
+        }
+
+        [HttpPost]
         [Route("api/execute")]
         public IHttpActionResult ExecuteCommandPost([FromBody] CommandRequest request)
         {
