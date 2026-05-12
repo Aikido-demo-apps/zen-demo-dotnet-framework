@@ -36,6 +36,9 @@ namespace ZenDemo.DotNetFramework.Helpers
             "http://metadata.google.internal/latest/api/token",
             "http://metadata.goog/latest/api/token",
             "http://169.254.169.254/latest/api/token",
+            "http://evil-stored-ssrf-hostname./latest/api/token",
+            "http://metadata.google.internal./latest/api/token",
+            "http://metadata.goog./latest/api/token",
         };
 
         private static readonly Lazy<AppHelpers> LazyInstance = new Lazy<AppHelpers>(() => new AppHelpers());
