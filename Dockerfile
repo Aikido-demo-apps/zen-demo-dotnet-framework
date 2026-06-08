@@ -6,7 +6,7 @@ WORKDIR C:\\src
 
 COPY . .
 
-RUN nuget restore .\\zen-demo-dotnet-framework.csproj -PackagesDirectory .\\packages
+RUN nuget restore .\\zen-demo-dotnet-framework.csproj
 
 RUN msbuild .\\zen-demo-dotnet-framework.csproj /t:Build /p:Configuration=Release
 
