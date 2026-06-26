@@ -19,6 +19,6 @@ WORKDIR C:\\inetpub\\wwwroot
 COPY --from=build C:\\src\\Global.asax .\\
 COPY --from=build C:\\src\\Web.config .\\
 COPY --from=build C:\\src\\bin\\ .\\bin\\
-COPY --from=build C:\\src\\wwwroot\\ .\\wwwroot\\
+COPY --from=build C:\\src\\wwwroot\\ .\\
 
 EXPOSE 80

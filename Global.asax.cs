@@ -13,13 +13,6 @@ namespace ZenDemo.DotNetFramework
 {
     public class WebApiApplication : HttpApplication
     {
-        private static readonly string[] StaticAssetPrefixes =
-        {
-            "/css/",
-            "/js/",
-            "/new-grotesk/"
-        };
-
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(App_Start.WebApiConfig.Register);
@@ -70,48 +63,6 @@ namespace ZenDemo.DotNetFramework
             }
 
             StoredSsrfBackgroundWorker.Start();
-        }
-
-        protected void Application_BeginRequest()
-        {
-            var path = Request.Path ?? string.Empty;
-
-            RewriteWwwRootAssetPath(path);
-
-            if (!path.StartsWith("/test_unregistered_route", StringComparison.OrdinalIgnoreCase))
-            {
-                return;
-            }
-
-            var context = Zen.GetContext();
-            Response.Clear();
-            Response.StatusCode = (int)HttpStatusCode.OK;
-            Response.ContentType = "text/plain";
-            Response.Write("Hello from unknown routing test! Route: " + (context != null ? context.Route : null));
-            Context.ApplicationInstance.CompleteRequest();
-        }
-
-        private void RewriteWwwRootAssetPath(string path)
-        {
-            if (string.IsNullOrWhiteSpace(path))
-            {
-                return;
-            }
-
-            if (path.Equals("/aikido_logo.svg", StringComparison.OrdinalIgnoreCase))
-            {
-                Context.RewritePath("~/wwwroot/public/aikido_logo.svg");
-                return;
-            }
-
-            foreach (var prefix in StaticAssetPrefixes)
-            {
-                if (path.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
-                {
-                    Context.RewritePath("~/wwwroot/public" + path);
-                    return;
-                }
-            }
         }
 
         protected void Application_End()
