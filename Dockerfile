@@ -3,14 +3,14 @@ ARG NETFX_TAG=4.8-windowsservercore-ltsc2022
 FROM mcr.microsoft.com/dotnet/framework/sdk:${NETFX_TAG} AS build
 
 WORKDIR C:\\src
-ARG MSBUILD_ARGS
+ARG MSBUILD_ARGS=/nologo
 ENV MSBUILD_ARGS=${MSBUILD_ARGS}
 
 COPY . .
 
-RUN if defined MSBUILD_ARGS (msbuild .\\zen-demo-dotnet-framework.csproj /t:Restore %MSBUILD_ARGS%) else (msbuild .\\zen-demo-dotnet-framework.csproj /t:Restore)
+RUN msbuild .\\zen-demo-dotnet-framework.csproj /t:Restore %MSBUILD_ARGS%
 
-RUN if defined MSBUILD_ARGS (msbuild .\\zen-demo-dotnet-framework.csproj /t:Build /p:Configuration=Release %MSBUILD_ARGS%) else (msbuild .\\zen-demo-dotnet-framework.csproj /t:Build /p:Configuration=Release)
+RUN msbuild .\\zen-demo-dotnet-framework.csproj /t:Build /p:Configuration=Release %MSBUILD_ARGS%
 
 FROM mcr.microsoft.com/dotnet/framework/aspnet:${NETFX_TAG} AS runtime
 
