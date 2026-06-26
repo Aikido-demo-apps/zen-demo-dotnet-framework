@@ -36,7 +36,7 @@ namespace ZenDemo.DotNetFramework.HttpModules
                 return;
             }
 
-            var publicRoot = Path.GetFullPath(context.Server.MapPath("~/public"));
+            var publicRoot = Path.GetFullPath(context.Server.MapPath("~/wwwroot/public"));
             var publicFilePath = Path.GetFullPath(Path.Combine(publicRoot, relativePath.Replace('/', Path.DirectorySeparatorChar)));
             if (!publicFilePath.StartsWith(publicRoot.TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase))
             {
