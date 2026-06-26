@@ -104,7 +104,7 @@ namespace ZenDemo.DotNetFramework.Helpers
 
         public string ReadFile(string filePath)
         {
-            var blogsDirectory = HostingEnvironment.MapPath("~/wwwroot/blogs") ?? string.Empty;
+            var blogsDirectory = HostingEnvironment.MapPath("~/blogs") ?? string.Empty;
             var fullPath = Path.Combine(blogsDirectory, filePath);
 
             return File.Exists(fullPath) ? File.ReadAllText(fullPath) : "File not found";
@@ -112,7 +112,7 @@ namespace ZenDemo.DotNetFramework.Helpers
 
         public string ReadFile2(string filePath)
         {
-            var blogsDirectory = HostingEnvironment.MapPath("~/wwwroot/blogs") ?? string.Empty;
+            var blogsDirectory = HostingEnvironment.MapPath("~/blogs") ?? string.Empty;
             var fullPath = Path.GetFullPath(Path.Combine(blogsDirectory, filePath));
 
             return File.Exists(fullPath) ? File.ReadAllText(fullPath) : "File not found";
