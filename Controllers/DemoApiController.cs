@@ -141,7 +141,7 @@ namespace ZenDemo.DotNetFramework.Controllers
             StoredSsrfRequest request = null;
             if (Request.Content != null)
             {
-                var rawBody = await Request.Content.ReadAsStringAsync().ConfigureAwait(false);
+                var rawBody = await Request.Content.ReadAsStringAsync();
                 if (!string.IsNullOrWhiteSpace(rawBody))
                 {
                     request = JsonConvert.DeserializeObject<StoredSsrfRequest>(rawBody);
