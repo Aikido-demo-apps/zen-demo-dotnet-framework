@@ -148,7 +148,7 @@ namespace ZenDemo.DotNetFramework.Controllers
                 }
             }
 
-            return HttpResponseHelper.PlainText(this, await AppHelpers.Instance.MakeStoredSsrfRequestAsync(request != null ? request.UrlIndex : (int?)null).ConfigureAwait(false));
+            return HttpResponseHelper.PlainText(this, await AppHelpers.Instance.MakeStoredSsrfRequestAsync(request != null ? request.UrlIndex : (int?)null));
         }
 
         [HttpPost]
