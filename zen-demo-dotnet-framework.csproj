@@ -25,7 +25,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
     <AutoUnifyAssemblyReferences>true</AutoUnifyAssemblyReferences>
-    <AikidoZenDotNetFrameworkVersion>1.2.55</AikidoZenDotNetFrameworkVersion>
+    <AikidoZenDotNetFrameworkVersion>1.2.56-beta1</AikidoZenDotNetFrameworkVersion>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
