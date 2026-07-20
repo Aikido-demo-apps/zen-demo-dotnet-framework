@@ -14,6 +14,8 @@ RUN msbuild .\\zen-demo-dotnet-framework.csproj /t:Build /p:Configuration=Releas
 
 FROM mcr.microsoft.com/dotnet/framework/aspnet:${NETFX_TAG} AS runtime
 
+RUN sc.exe config w3svc start= demand
+
 WORKDIR C:\\inetpub\\wwwroot
 
 COPY --from=build C:\\src\\Global.asax .\\
