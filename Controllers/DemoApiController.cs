@@ -184,6 +184,22 @@ namespace ZenDemo.DotNetFramework.Controllers
         }
 
         [HttpGet]
+        [Route("api/custom-event")]
+        public IHttpActionResult TrackCustomEvent(int count = 1)
+        {
+            if (!ModelState.IsValid || count < 1 || count > 100)
+            {
+                return HttpResponseHelper.PlainText(this, "count must be an integer between 1 and 100", HttpStatusCode.BadRequest);
+            }
+
+            for (var index = 0; index < count; index++)
+            {
+                Zen.Track("user.login_failed");
+            }
+            return HttpResponseHelper.PlainText(this, "Events tracked");
+        }
+
+        [HttpGet]
         [Route("api/client-ip")]
         public IHttpActionResult GetClientIp()
         {
