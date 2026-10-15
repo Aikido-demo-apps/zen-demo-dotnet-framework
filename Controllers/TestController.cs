@@ -1,12 +1,30 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web.Http;
+using Aikido.Zen.DotNetFramework;
 using ZenDemo.DotNetFramework.Helpers;
 
 namespace ZenDemo.DotNetFramework.Controllers
 {
     public class TestController : ApiController
     {
+        [HttpGet]
+        [Route("api/custom-event")]
+        public IHttpActionResult TrackCustomEvent(int count = 1)
+        {
+            if (!ModelState.IsValid || count < 1 || count > 100)
+            {
+                return HttpResponseHelper.PlainText(this, "count must be an integer between 1 and 100", HttpStatusCode.BadRequest);
+            }
+
+            for (var index = 0; index < count; index++)
+            {
+                Zen.Track("user.login_failed");
+            }
+            return HttpResponseHelper.PlainText(this, "Events tracked");
+        }
+
         [HttpGet]
         [Route("test_ratelimiting_1")]
         public IHttpActionResult TestRateLimiting1()
