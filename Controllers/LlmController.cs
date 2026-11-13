@@ -52,12 +52,10 @@ namespace ZenDemo.DotNetFramework.Controllers
                 return "OPENAI_API_KEY is not configured";
             }
 
-            const string defaultModel = "gpt-6-luna";
-            var model = Environment.GetEnvironmentVariable("OPENAI_MODEL") ?? defaultModel;
             var payload = new
             {
-                model,
-                reasoning_effort = model == defaultModel ? "none" : null,
+                model = "gpt-6-luna",
+                reasoning_effort = "none",
                 messages = new object[]
                 {
                     new { role = "system", content = prompt },
@@ -68,8 +66,7 @@ namespace ZenDemo.DotNetFramework.Controllers
             using (var requestMessage = new HttpRequestMessage(HttpMethod.Post, "https://api.openai.com/v1/chat/completions"))
             {
                 requestMessage.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", apiKey);
-                var json = JsonConvert.SerializeObject(payload, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
-                requestMessage.Content = new StringContent(json, Encoding.UTF8, "application/json");
+                requestMessage.Content = new StringContent(JsonConvert.SerializeObject(payload), Encoding.UTF8, "application/json");
 
                 using (var response = await HttpClient.SendAsync(requestMessage).ConfigureAwait(false))
                 {
