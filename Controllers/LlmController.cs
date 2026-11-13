@@ -52,15 +52,22 @@ namespace ZenDemo.DotNetFramework.Controllers
                 return "OPENAI_API_KEY is not configured";
             }
 
-            var payload = new
+            const string defaultModel = "gpt-6-luna";
+            var model = Environment.GetEnvironmentVariable("OPENAI_MODEL") ?? defaultModel;
+            var payload = JObject.FromObject(new
             {
-                model = Environment.GetEnvironmentVariable("OPENAI_MODEL") ?? "gpt-4o-mini",
+                model,
                 messages = new object[]
                 {
                     new { role = "system", content = prompt },
                     new { role = "user", content = userMessage }
                 }
-            };
+            });
+
+            if (model == defaultModel)
+            {
+                payload["reasoning_effort"] = "none";
+            }
 
             using (var requestMessage = new HttpRequestMessage(HttpMethod.Post, "https://api.openai.com/v1/chat/completions"))
             {
