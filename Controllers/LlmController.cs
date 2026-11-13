@@ -54,25 +54,22 @@ namespace ZenDemo.DotNetFramework.Controllers
 
             const string defaultModel = "gpt-6-luna";
             var model = Environment.GetEnvironmentVariable("OPENAI_MODEL") ?? defaultModel;
-            var payload = JObject.FromObject(new
+            var payload = new
             {
                 model,
+                reasoning_effort = model == defaultModel ? "none" : null,
                 messages = new object[]
                 {
                     new { role = "system", content = prompt },
                     new { role = "user", content = userMessage }
                 }
-            });
-
-            if (model == defaultModel)
-            {
-                payload["reasoning_effort"] = "none";
-            }
+            };
 
             using (var requestMessage = new HttpRequestMessage(HttpMethod.Post, "https://api.openai.com/v1/chat/completions"))
             {
                 requestMessage.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", apiKey);
-                requestMessage.Content = new StringContent(JsonConvert.SerializeObject(payload), Encoding.UTF8, "application/json");
+                var json = JsonConvert.SerializeObject(payload, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+                requestMessage.Content = new StringContent(json, Encoding.UTF8, "application/json");
 
                 using (var response = await HttpClient.SendAsync(requestMessage).ConfigureAwait(false))
                 {
