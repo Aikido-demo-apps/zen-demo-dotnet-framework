@@ -54,7 +54,8 @@ namespace ZenDemo.DotNetFramework.Controllers
 
             var payload = new
             {
-                model = Environment.GetEnvironmentVariable("OPENAI_MODEL") ?? "gpt-4o-mini",
+                model = "gpt-6-luna",
+                reasoning_effort = "none",
                 messages = new object[]
                 {
                     new { role = "system", content = prompt },
