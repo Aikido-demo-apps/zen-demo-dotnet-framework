@@ -81,6 +81,7 @@
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="6.0.0" />
     <PackageReference Include="Microsoft.Bcl.HashCode" Version="1.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="6.0.4" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Npgsql" Version="6.0.11" />
     <PackageReference Include="System.Buffers" Version="4.5.1" />
     <PackageReference Include="System.Collections.Immutable" Version="6.0.0" />
@@ -90,6 +91,7 @@
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
     <PackageReference Include="System.Text.Encodings.Web" Version="6.0.0" />
     <PackageReference Include="System.Text.Json" Version="6.0.0" />
+    <PackageReference Include="System.Text.Json" Version="6.0.10" />
     <PackageReference Include="System.Threading.Channels" Version="6.0.0" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
@@ -121,9 +123,7 @@
 
     <Message Importance="High" Text="Using Aikido.Zen.DotNetFramework version: $(AikidoZenDotNetFrameworkVersion)" />
 
-    <Error
-      Condition="'@(AikidoLocalPackage)' != '' and !Exists('local-feed/Aikido.Zen.DotNetFramework.$(AikidoZenDotNetFrameworkVersion).nupkg')"
-      Text="local-feed contains Aikido.Zen.DotNetFramework packages, but none matches requested version $(AikidoZenDotNetFrameworkVersion). The QA package version override is probably missing." />
+    <Error Condition="'@(AikidoLocalPackage)' != '' and !Exists('local-feed/Aikido.Zen.DotNetFramework.$(AikidoZenDotNetFrameworkVersion).nupkg')" Text="local-feed contains Aikido.Zen.DotNetFramework packages, but none matches requested version $(AikidoZenDotNetFrameworkVersion). The QA package version override is probably missing." />
   </Target>
   <ProjectExtensions>
     <VisualStudio>
